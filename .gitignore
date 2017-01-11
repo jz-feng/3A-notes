@@ -1,0 +1,11 @@
+.DS_Store
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.gz
+
+SE350/SE350/
+SE465/stqam-2017/
+CS349/zhfeng/
+CS341/A*/

@@ -1,0 +1,55 @@
+\documentclass[11pt, oneside]{article}
+\usepackage[margin=1in]{geometry}
+\geometry{letterpaper}
+\usepackage{amssymb}
+\usepackage[fleqn]{amsmath}
+\usepackage[sharp]{easylist}
+\usepackage{relsize}
+
+\pagenumbering{gobble}              % No page numbering
+\setlength{\parindent}{0em}         % No paragraph indenting
+\setlength{\parskip}{0.5em}         % Paragraph spacing
+
+\newcommand*{\begineasylist}{\begin{easylist}[itemize]\ListProperties(Style*=$\bullet$\quad, Style2*=\tiny$\blacksquare$\quad, Style3*=$\circ$\quad, Style4*=$\diamond$\quad, FinalSpace=1em, Space=0em, Space*=0em)}
+
+\newcommand*{\begineasylistnumbered}{\begin{easylist}[enumerate]\ListProperties(Numbers=a, Space=0em, Space*=0em)}
+
+\begin{document}
+
+\section*{Asymptotic Analysis Cheatsheet}
+
+\begineasylist
+
+# Order Notations:
+## $f(n) \in O(g(n))$ if $\exists \ c > 0$ and $n_0 > 0$ such that $0 \leq f(n) \leq cg(n) \ \forall \ n \geq n_0$
+### $f$ ``grows no faster than'' $g$
+
+## $f(n) \in \Omega(g(n))$ if $\exists \ c > 0$ and $n_0 > 0$ such that $0 \leq cg(n) \leq f(n) \ \forall \ n \geq n_0$
+### $f$ ``grows no slower than'' $g$
+
+## $f(n) \in \Theta(g(n))$ if $\exists \ c_1, c_2 > 0$ and $n_0 > 0$ such that $0 \leq c_1g(n) \leq f(n) \leq c_2g(n) \ \forall \ n \geq n_0$
+### $f$ ang $g$ have the \emph{same complexity}
+
+## $f(n) \in o(g(n))$ if $\forall \ c > 0, \exists \ n_0 > 0$ such that $0 \leq f(n) < cg(n) \ \forall \ n \geq n_0$
+### $f$ has \emph{lower complexity} than $g$
+
+## $f(n) \in \omega(g(n))$ if $\forall \ c > 0, \exists \ n_0 > 0$ such that $0 \leq cg(n) < f(n) \ \forall \ n \geq n_0$  
+### $f$ has \emph{higher complexity} than $g$
+
+# Suppose $L = \lim_{n \rightarrow \infty} \dfrac{f(n)}{g(n)}$
+## If $L = 0$ then $f \in o(g)$
+## If $0 < L < \infty$ then $f \in \Theta(g)$
+## If $L = \infty$ then $f \in \omega(g)$
+
+# L'Hopital's Rule:
+## $\lim_{x \rightarrow c} \dfrac{f(x)}{g(x)} = \lim_{x \rightarrow c} \dfrac{f'(x)}{g'(x)}$ if it exists
+
+# $f \in O(g)$ and $f \in \Omega(g) \iff f \in \Theta(g)$
+
+# Important/useful facts:
+## $\log n \geq 1 \ \forall \ n \geq 2$
+## $\log n \geq n \ \forall \ n \geq 0$
+
+\end{easylist}
+
+\end{document}
