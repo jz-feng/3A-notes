@@ -36,6 +36,8 @@
 ## $f(n) \in \omega(g(n))$ if $\forall \ c > 0, \exists \ n_0 > 0$ such that $0 \leq cg(n) < f(n) \ \forall \ n \geq n_0$  
 ### $f$ has \emph{higher complexity} than $g$
 
+## $f \in O(g)$ and $f \in \Omega(g) \iff f \in \Theta(g)$
+
 # Suppose $L = \lim_{n \rightarrow \infty} \dfrac{f(n)}{g(n)}$
 ## If $L = 0$ then $f \in o(g)$
 ## If $0 < L < \infty$ then $f \in \Theta(g)$
@@ -44,11 +46,10 @@
 # L'Hopital's Rule:
 ## $\lim_{x \rightarrow c} \dfrac{f(x)}{g(x)} = \lim_{x \rightarrow c} \dfrac{f'(x)}{g'(x)}$ if it exists
 
-# $f \in O(g)$ and $f \in \Omega(g) \iff f \in \Theta(g)$
-
 # Important/useful facts:
 ## $\log n \geq 1 \ \forall \ n \geq 2$
 ## $\log n \geq n \ \forall \ n \geq 0$
+## $\sum_{i=1}^n i^k \in \Theta(n^{k+1})$
 
 \end{easylist}
 
