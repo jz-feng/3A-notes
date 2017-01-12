@@ -38,18 +38,24 @@
 
 ## $f \in O(g)$ and $f \in \Omega(g) \iff f \in \Theta(g)$
 
-# Suppose $L = \lim_{n \rightarrow \infty} \dfrac{f(n)}{g(n)}$
-## If $L = 0$ then $f \in o(g)$
-## If $0 < L < \infty$ then $f \in \Theta(g)$
-## If $L = \infty$ then $f \in \omega(g)$
+# Limit method: suppose $L = \lim_{n \rightarrow \infty} \dfrac{f(n)}{g(n)}$
+## $f \in o(g)$ if $L = 0$
+## $f \in \Theta(g)$ if $0 < L < \infty$
+## $f \in \omega(g)$ if $L = \infty$
 
-# L'Hopital's Rule:
-## $\lim_{x \rightarrow c} \dfrac{f(x)}{g(x)} = \lim_{x \rightarrow c} \dfrac{f'(x)}{g'(x)}$ if it exists
-
-# Important/useful facts:
+# Useful facts for first-principles proofs:
 ## $\log n \geq 1 \ \forall \ n \geq 2$
 ## $\log n \geq n \ \forall \ n \geq 0$
+
+# Some math rules:
 ## $\sum_{i=1}^n i^k \in \Theta(n^{k+1})$
+## $\sum_{i=1}^n c^i$
+### $\in \Theta(c^n)$ if $c > 1$
+### $\in \Theta(n)$ if $c = 1$
+### $\in \Theta(1)$ if $c < 1$
+## $\lim_{x \rightarrow c} \dfrac{f(x)}{g(x)} = \lim_{x \rightarrow c} \dfrac{f'(x)}{g'(x)}$ if it exists (L'Hopital's Rule)
+## $\log (n!) \in \Theta(n \log n)$ (Stirling's Approximation)
+## $\sum_{i=1}^n \dfrac{1}{i} \in \Theta(\log n)$ (Harmonic series)
 
 \end{easylist}
 
