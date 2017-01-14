@@ -51,11 +51,11 @@ These notes are meant to be supplementary to lecture slides \& the textbook, and
 ## $\log n \geq n \ \forall \ n \geq 0$; i.e. $\log n$ grows faster than $n$
 
 # Some math rules:
-## $\sum_{i=1}^n i^k \in \Theta(n^{k+1})$
-## Summing an exponential:
+## Summing a polynomial: $\sum_{i=1}^n i^k \in \Theta(n^{k+1})$
+## Summing an exponential (special case of geometric series):
 $$\sum_{i=1}^n c^i \in \left\{
 \begin{array}{ll}
-\Theta(c^n) &\text{if } c > 1 \\
+\Theta(c^{n+1}) &\text{if } c > 1 \\
 \Theta(n) &\text{if } c = 1 \\
 \Theta(1) &\text{if } c < 1
 \end{array}
