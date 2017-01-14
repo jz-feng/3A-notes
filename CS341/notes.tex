@@ -52,11 +52,25 @@ These notes are meant to be supplementary to lecture slides \& the textbook, and
 
 # Some math rules:
 ## $\sum_{i=1}^n i^k \in \Theta(n^{k+1})$
-## $\sum_{i=1}^n c^i \in$
-### $\Theta(c^n)$ if $c > 1$
-### $\Theta(n)$ if $c = 1$
-### $\Theta(1)$ if $c < 1$
+## Summing an exponential:
+$$\sum_{i=1}^n c^i \in \left\{
+\begin{array}{ll}
+\Theta(c^n) &\text{if } c > 1 \\
+\Theta(n) &\text{if } c = 1 \\
+\Theta(1) &\text{if } c < 1
+\end{array}
+\right.
+$$
 ## $a^{\log_b n} = n^{\log_b a}$ (Useful for recursion trees)
+## Geometric series:
+$$\sum_{i=0}^{n-1}ar^i = \left\{
+\begin{array}{ll}
+a\frac{r^n-1}{r-1} \in \Theta(r^n) &\text{if } r > 1 \\
+na \in \Theta(n) &\text{if } r = 1 \\
+a\frac{1-r^n}{1-r} \in \Theta(1) &\text{if } r < 1
+\end{array}
+\right.
+$$
 ## $\lim_{x \rightarrow c} \dfrac{f(x)}{g(x)} = \lim_{x \rightarrow c} \dfrac{f'(x)}{g'(x)}$ if it exists (L'Hopital's Rule)
 ## $\log (n!) \in \Theta(n \log n)$ (Stirling's Approximation)
 ## $\sum_{i=1}^n \dfrac{1}{i} \in \Theta(\log n)$ (Harmonic series)
