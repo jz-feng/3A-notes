@@ -80,8 +80,8 @@ $$
 \begineasylist
 
 # \textbf{Recursion-tree method}:
-## E.g. given the recurrence $T(n) = aT(n/b) + f(n), T(1) = c$:
-### $a$ is the \# of recursive calls made in the function
+## Given the recurrence $T(n) = aT(n/b) + f(n), T(1) = c$:
+### $a$ is the \# of recursive calls made (\# of subproblems) 
 ### $b$ is the \# by which the input size $n$ is divided in each recursive call
 ### $f(n)$ is the runtime of the ``work done outside of the recursive calls''
 ### $c$ is the constant-time work done in each recursive call in the base case
@@ -100,6 +100,19 @@ $$
 \end{align*}
 ### Total runtime of recursion tree is (summing every row total):
 $$T(n) \in \Theta\left(\sum_{i=0}^{\log_b n - 1} a^if(n/b^i)\right) + \Theta(n^{\log_b a})$$
+### Use geometric series formula to find a simplified value
+
+# \textbf{Master method}:
+## Given the recurrence $T(n) = aT(n/b) + f(n)$ where $f(n) \in \Theta(n^d)$:
+$$T(n) \in \left\{
+\begin{array}{ll}
+\Theta(n^{\log_b a}) &\text{if } a > b^d \\
+\Theta(n^d\log n) &\text{if } a = b^d \\
+\Theta(n^d) &\text{if } a < b^d
+\end{array}
+\right.
+$$
+
 
 \end{easylist}
 \end{document}
