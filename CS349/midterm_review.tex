@@ -1,5 +1,5 @@
 \documentclass[11pt, oneside]{article}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.75in]{geometry}
 \geometry{letterpaper}
 \usepackage{amssymb}
 \usepackage[fleqn]{amsmath}
@@ -11,9 +11,11 @@
 \setlength{\parindent}{0em}         % No paragraph indenting
 \setlength{\parskip}{0.5em}         % Paragraph spacing
 
-\newcommand*{\begineasylist}{\begin{easylist}[itemize]\ListProperties(Style*=$\bullet$\quad, Style2*=\tiny$\blacksquare$\quad, Style3*=$\circ$\quad, Style4*=$\diamond$\quad, FinalSpace=1em, Space=0em, Space*=0em)}
+\newcommand*{\begineasylist}{\begin{easylist}[itemize]\ListProperties(Style*=$\bullet$\quad, Style2*=\tiny$\blacksquare$\quad, Style3*=$\circ$\quad, Style4*=$\diamond$\quad, FinalSpace=1em, Space=-0.2em, Space*=-0.2em)}
 
 \newcommand*{\begineasylistnumbered}{\begin{easylist}[enumerate]\ListProperties(Numbers=a, Space=0em, Space*=0em)}
+
+\newcommand*{\un}[1]{\underline{\smash{#1}}}        % custom underline macro
 
 \begin{document}
 
@@ -23,7 +25,7 @@
 \begineasylist
 
 # \textbf{User interface}: 
-## The place where a person \emph{expresses intention} to an artifact, and the artifact \emph{presents feedback} to the person
+## The place where a person \un{expresses intention} to an artifact, and the artifact \un{presents feedback} to the person
 ## The way people (mental model) and technology (system model) interact
 
 ## Represented as MVC: \\
@@ -62,7 +64,51 @@
 \subsection*{Windowing Systems \& X11}
 \begineasylist
 
-#
+# \textbf{Windowing system}: provides input, output, and window management capabilities to the OS
+
+# \textbf{X Windows (X11)}:
+## Standard windowing system for Unix-based systems
+
+# X11 architecture
+## \textbf{X Client} handles all application logic
+## \textbf{X Server} handles all user input \& display output
+## There may be many clients -- each client is an application; server draws all clients onto one screen and reads all input \\
+\includegraphics[width=0.7\textwidth]{res/mvc_x11.png}
+
+# Structure of an X program (application is run on the X client):
+## Perform client initialization
+## Connect to X server
+## Perform X related initialization
+## Event loop (get next event from server, handle event, send draw request to server)
+## Close down connection to X server
+## Perform client cleanup
+
+# X11 is a \textbf{base windowing system}: \\
+\includegraphics[width=0.5\textwidth]{res/bws.png}
+## A standard/protocol for creating windows, low-level graphical output, and user input
+## Does not specify the style of each application's UI
+## Provides each application with a window and manages its access
+## Each application (only) owns a \un{canvas}; shielded from details such as visibility, other windows, etc.
+
+## Some \un{design goals} of X11/BWS:
+### Supports multiple overlapping \& resizable windows
+### A display may have multiple screens (e.g. monitors) and a window may span multiple screens
+### High-performance, high-quality text, 2D graphic \& imaging
+
+# \textbf{Window manager}:
+## Provides interactive components (e.g. menus, close button)
+## The WM owns each application's window itself (while application owns the canvas)
+### i.e. application developers usually cannot change the window style
+## Separation of the WM from the BWS enables many alternative ``look and feels'' \\
+\includegraphics[width=0.5\textwidth]{res/wm.png}
+
+# \textbf{Drawing}
+## Three conceptual drawing models:
+### Pixel (e.g. images)
+### Stroke (e.g. lines, outlines of shapes)
+### Region (e.g. text, filled shapes)
+
+## X11 uses \un{graphics contexts} to store drawing options/parameters -- stored on X server
 
 \end{easylist}
 
