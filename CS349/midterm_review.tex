@@ -61,6 +61,7 @@
 
 \end{easylist}
 
+\newpage
 \subsection*{Windowing Systems \& X11}
 \begineasylist
 
@@ -77,10 +78,13 @@
 
 # Structure of an X program (application is run on the X client):
 ## Perform client initialization
-## Connect to X server
-## Perform X related initialization
-## Event loop (get next event from server, handle event, send draw request to server)
-## Close down connection to X server
+## Connect to X server (e.g. \texttt{XOpenDisplay()}, \texttt{XCreateWindow()})
+## Perform X related initialization (e.g. create graphic contexts with \texttt{XCreateGC()}; put window on the screen with \texttt{XMapRaised()})
+## Event loop
+### Get next event from server (e.g. \texttt{XNextEvent()})
+### Handle event (e.g. \texttt{XLookupKeysym()})
+### Send draw request to server (e.g. flush output buffer with \texttt{XFlush()})
+## Close down connection to X server (e.g. \texttt{XCloseDisplay()})
 ## Perform client cleanup
 
 # X11 is a \textbf{base windowing system}: \\
@@ -110,12 +114,32 @@
 
 ## X11 uses \un{graphics contexts} to store drawing options/parameters -- stored on X server
 
+## \textbf{Painter's Algorithm}: draw shapes in layers from back to front to create composite shapes
+## Implementation in X11:
+### \texttt{Displayable} class with abstract \texttt{paint()} method
+### Implement \texttt{paint()} in each subclass
+### Draw list of \texttt{Displayables} from back to front, clear screen on every repaint
+
+# \textbf{Events \& animation}
+## Objective: need to map input from real-word devices to actions within a system
+## \un{Event-driven programming}: flow of program is determined by \un{events} such as user input (key press, mouse click, input focus change) or sensor/timer events
+## Implementation in X11:
+### Use \texttt{XSelectInput()} and event masks (e.g. \texttt{KeyPressMask} etc.) to register for types of events 
+### Use \texttt{XNextEvent()} to dequeue the next event; \un{may block if no events}
+#### Use \texttt{XPending()} to check for \# of events before dequeueing
+### Should dequeue \emph{all events} before repainting to avoid input lag
+### Should subtract time spent in event loop from \texttt{sleep()} to maintain consistent FPS
+### Should draw all images to a \emph{buffer} (\texttt{XCreatePixmap()}), then copy the buffer onto the screen in one go (\texttt{XCopyArea()}) (aka. \un{double buffering})
+#### Avoids displaying an intermediate image (i.e. flickering)
+
 \end{easylist}
 
-\subsection*{Java}
+\newpage
+\subsection*{Modern GUI}
 \begineasylist
 
-#
+# \textbf{Widgets}
+## 
 
 \end{easylist}
 
