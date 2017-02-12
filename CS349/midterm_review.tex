@@ -117,6 +117,11 @@
 
 ## X11 uses \un{graphics contexts} to store drawing options/parameters -- stored on X server
 
+## \textbf{Clipping}: exposing only a particular region (specified by a mask) of an underlying image
+## Implementation in X11:
+### \texttt{XSetClipMask()}, \texttt{XSetClipRectangles()}
+### Only exposed area is repainted
+
 ## \textbf{Painter's Algorithm}: draw shapes in layers from back to front to create composite shapes
 ## Implementation in X11:
 ### \texttt{Displayable} class with abstract \texttt{paint()} method
@@ -138,11 +143,10 @@
 \end{easylist}
 
 \newpage
-\subsection*{Modern GUI}
+\subsection*{Widgets, Events \& Layout}
 \begineasylist
 
-# \textbf{Widgets}
-## Parts of an interface that have their own behaviour
+# \textbf{Widgets}: parts of an interface that have their own behaviour
 ## Control their own appearance; recieve and handle their own events
 ## Widgets \un{toolkit} defines a set of GUI components
 ## Design goals: 
@@ -155,9 +159,8 @@
 \hspace{-2em}
 \begin{tabular}{|l|l|}
 \hline
-Heavyweight widgets & Lightweight widgets \\
-\hline
 \begin{minipage}[t]{0.45\textwidth}
+Heavyweight widgets:
     \begin{itemized}
     \item Wrappers around OS's native GUI \& windowing system 
     \item e.g. Java AWT
@@ -166,6 +169,7 @@ Heavyweight widgets & Lightweight widgets \\
 \end{minipage}
 &
 \begin{minipage}[t]{0.45\textwidth}
+Lightweight widgets:
     \begin{itemized}
     \item OS provides top-level window in which widgets are drawn
     \item Toolkit is responsible to passing events to widgets
@@ -231,18 +235,103 @@ Disadvantages:
 ## Special value widgets: colour picker, calendar etc.
 
 
+# Event dispatch $\rightarrow$ event handling $\rightarrow$ notifying view \& windowing system
+
+# \textbf{Event dispatch}: dequeueing events from event queue and pushing to appropriate applications
+
+## \un{Interactor tree} -- hierarchy of containers and their nested widgets
+
+## \un{Positional dispatch} -- input sent to widget under mouse cursor location
+### Bottom-up positional dispatch:
+#### Event routed to leaf widget in interactor tree
+#### Widget can process the event or pass to its parent
+#### e.g. widget belongs in a group/container -- may be better for container to handle the event
+### Top-down positional dispatch:
+#### Event routed to highest-level node that contains mouse cursor
+#### Widget can process the event or pass to child component
+#### e.g. parent widget can enforce policies
+#### e.g. easy logging of events (as it traverses down through the tree)
+
+## \un{Focus dispatch} -- events dispatched to widget that has keyboard/mouse focus
+### At most one widget each can be in keyboard \& mouse focus at a given time
+## Focus dispatch also needs positional dispatch to change focus
+## Accelerator keys can bypass focus dispatch
+
+\hspace{-2em}
+\begin{tabular}{|l|l|}
+\hline
+\begin{minipage}[t]{0.45\textwidth}
+Heavyweight toolkits:
+    \begin{itemized}
+    \item BWS has visibility to all widgets
+    \item Can use top-down or bottom-up dispatch
+    \end{itemized}
+    \vspace*{0.5em}
+\end{minipage}
+&
+\begin{minipage}[t]{0.45\textwidth}
+Lightweight toolkits:
+    \begin{itemized}
+    \item BWS only has visibility to application window
+    \item Toolkit dispatches event to widget
+    \item Can only use top-down dispatch
+    \end{itemized}
+    \vspace*{0.5em}
+\end{minipage}  \\
+\hline
+\end{tabular} \\
+
+# \textbf{Event handling}: interpreting events in widget's application code
+## Event loop \& switch statement (X11):
+### All events are consumed in one event loop
+### Switch statement selects the appropriate code for each event (\texttt{switch (event.type) \ldots})
+### Downsides: switch statement needs to encompass every type of event (too many!)
+
+## Inheritance binding (Java, OS X):
+### Events are dispatched to base widget class with predefined event handling methods (default behaviour)
+### Child widget overrides methods with custom behaviour
+### Downsides:
+#### Multiple events are handled by each method -- becomes switch statement again
+#### Event handling code in application logic (child widget) -- no separation of concerns
+#### Difficult to add new events
+
+## Listener binding (Java):
+### \un{Interface binding} -- widget class implements event listener interfaces
+
+\hspace{2em} \texttt{public class A implements Listener \{ // implement all methods \}}
+
+### \un{Object binding} -- widget class holds listener objects (implement listener interface as a nested class)
+#### Event handling \& application code are decoupled
+
+\texttt{this.addListener(new Listener() \{ // implement all methods \});}
+
+### \un{Adapter pattern} -- widget class holds adapter objects (class with boilerplate implementations)
+#### Custom adapter only needs to extend methods that are used
+
+\texttt{this.addListener(new ListenerAdapter() \{ // override some methods \});}
+
+## Delegate binding (.NET):
+### Delegates ``point'' to a method (or methods); invoking delegate calls all associates methods
+
+\hspace{2em} \texttt{delegate = object.Method1; delegate += object.Method2; delegate(args);} \\
+
+
+# \textbf{Layouts}:
+## Dynamic layout: 
 
 \end{easylist}
 
+\newpage
+\subsection*{Graphics \& Transformations}
+\begineasylist
+
+#
 
 
 
 
 
 
-
-
-
-
+\end{easylist}
 
 \end{document}
