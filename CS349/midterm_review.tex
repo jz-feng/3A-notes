@@ -130,7 +130,7 @@
 
 # \textbf{Events \& animation}
 ## Objective: need to map input from real-word devices to actions within a system
-## \un{Event-driven programming}: flow of program is determined by \un{events} such as user input (key press, mouse click, input focus change) or sensor/timer events
+## \textbf{Event-driven programming}: flow of program is determined by \un{events} such as user input (key press, mouse click, input focus change) or sensor/timer events
 ## Implementation in X11:
 ### Use \texttt{XSelectInput()} and event masks (e.g. \texttt{KeyPressMask} etc.) to register for types of events 
 ### Use \texttt{XNextEvent()} to dequeue the next event; \un{may block if no events}
@@ -150,9 +150,9 @@
 ## Control their own appearance; recieve and handle their own events
 ## Widgets \un{toolkit} defines a set of GUI components
 ## Design goals: 
-### \emph{Complete} -- covers wide range of functionality
-### \emph{Consistent} -- look-and-feel across components
-### \emph{Customizable} -- developers can extend functionality
+### \un{Complete} -- covers wide range of functionality
+### \un{Consistent} -- look-and-feel across components
+### \un{Customizable} -- developers can extend functionality
 
 ## Consistent behaviour of components helps users anticipate how the interface will react, and promotes easier \emph{discoverability} of features
 
@@ -160,7 +160,7 @@
 \begin{tabular}{|l|l|}
 \hline
 \begin{minipage}[t]{0.45\textwidth}
-Heavyweight widgets:
+\textbf{Heavyweight widgets}:
     \begin{itemized}
     \item Wrappers around OS's native GUI \& windowing system 
     \item e.g. Java AWT
@@ -169,7 +169,7 @@ Heavyweight widgets:
 \end{minipage}
 &
 \begin{minipage}[t]{0.45\textwidth}
-Lightweight widgets:
+\textbf{Lightweight widgets}:
     \begin{itemized}
     \item OS provides top-level window in which widgets are drawn
     \item Toolkit is responsible to passing events to widgets
@@ -225,6 +225,10 @@ Disadvantages:
 ## Model is abstracted into an interface/abstract class for more code reuse and customizability
 ### Interface may provide many accessors, mutators \& event-firing functions to be implemented by the custom widgets, allowing for easy manipulation of custom data
 
+## Essential geometry is computed by the view; controller interacts with it
+### Mapping mouse position/action to some behaviour or concept in the model
+### e.g. mouse position $\rightarrow$ scrollbar region/position
+
 ## Examples of widgets and their characterstics:
 ### e.g. button
 #### Model = \emph{none}; events = \emph{push}; properties = \emph{label, size, colour etc.}
@@ -239,29 +243,29 @@ Disadvantages:
 
 # \textbf{Event dispatch}: dequeueing events from event queue and pushing to appropriate applications
 
-## \un{Interactor tree} -- hierarchy of containers and their nested widgets
+# \textbf{Interactor tree} -- hierarchy of containers and their nested widgets
 
-## \un{Positional dispatch} -- input sent to widget under mouse cursor location
-### Bottom-up positional dispatch:
-#### Event routed to leaf widget in interactor tree
-#### Widget can process the event or pass to its parent
-#### e.g. widget belongs in a group/container -- may be better for container to handle the event
-### Top-down positional dispatch:
-#### Event routed to highest-level node that contains mouse cursor
-#### Widget can process the event or pass to child component
-#### e.g. parent widget can enforce policies
-#### e.g. easy logging of events (as it traverses down through the tree)
+# \textbf{Positional dispatch} -- input sent to widget under mouse cursor location
+## Bottom-up positional dispatch:
+### Event is routed to leaf (lowest) widget in interactor tree
+### Widget can process the event or pass to its parent
+### e.g. widget belongs in a group/container -- may be better for container to handle the event
+## Top-down positional dispatch:
+### Event is routed to highest-level node that contains mouse cursor
+### Widget can process the event or pass to child component
+### e.g. parent widget can enforce policies
+### e.g. easy logging of events (as it traverses down through the tree)
 
-## \un{Focus dispatch} -- events dispatched to widget that has keyboard/mouse focus
-### At most one widget each can be in keyboard \& mouse focus at a given time
-## Focus dispatch also needs positional dispatch to change focus
-## Accelerator keys can bypass focus dispatch
+# \textbf{Focus dispatch} -- events dispatched to widget that has keyboard/mouse focus
+## At most one widget each can be in keyboard \& mouse focus at a given time
+## Focus dispatch also needs positional dispatch to change focus (i.e. mouse click)
+## Accelerator keys (i.e. keyboard shortcuts) can bypass focus dispatch -- they're handled before widget receives events
 
 \hspace{-2em}
 \begin{tabular}{|l|l|}
 \hline
 \begin{minipage}[t]{0.45\textwidth}
-Heavyweight toolkits:
+\textbf{Heavyweight toolkits}:
     \begin{itemized}
     \item BWS has visibility to all widgets
     \item Can use top-down or bottom-up dispatch
@@ -270,7 +274,7 @@ Heavyweight toolkits:
 \end{minipage}
 &
 \begin{minipage}[t]{0.45\textwidth}
-Lightweight toolkits:
+\textbf{Lightweight toolkits}:
     \begin{itemized}
     \item BWS only has visibility to application window
     \item Toolkit dispatches event to widget
@@ -291,7 +295,6 @@ Lightweight toolkits:
 ### Events are dispatched to base widget class with predefined event handling methods (default behaviour)
 ### Child widget overrides methods with custom behaviour
 ### Downsides:
-#### Multiple events are handled by each method -- becomes switch statement again
 #### Event handling code in application logic (child widget) -- no separation of concerns
 #### Difficult to add new events
 
@@ -311,13 +314,39 @@ Lightweight toolkits:
 \texttt{this.addListener(new ListenerAdapter() \{ // override some methods \});}
 
 ## Delegate binding (.NET):
-### Delegates ``point'' to a method (or methods); invoking delegate calls all associates methods
+### Delegates ``point'' to a method (or methods); invoking delegate calls all associated methods
 
 \hspace{2em} \texttt{delegate = object.Method1; delegate += object.Method2; delegate(args);} \\
 
 
-# \textbf{Layouts}:
-## Dynamic layout: 
+# \textbf{Dynamic layout} -- maximize use of available of space by widgets, while maintaining consistency \& visual quality of spatial layout
+## May adjust location, size, visibility \& look-and-feel of widgets
+# \textbf{Adaptive/responsive layout} -- changing spatial layout \& swapping widgets to adapt to different device sizes
+# Widgets may define constraints for size (e.g. min, preferred, max), position (e.g. anchors)
+## Use \un{layout managers} to size \& position child widgets
+
+# \un{Composite pattern} -- group/container of widgets and individual widgets are treated uniformly
+## Widgets are organized in a tree hierarchy
+
+# \un{Strategy pattern} -- abstract out the algorithm so that it can be changed at run-time
+## Layout manager can employ different layout strategies
+
+# Types of layouts:
+## \un{Fixed} -- widgets have fixed size \& position
+### e.g. set \texttt{LayoutManager} to null
+
+## \un{Intrinsic size} -- parent widget's size depends on contained widgets
+### Bottom-up algorithm -- query each child widget for preferred size, then set size for parent
+### e.g. \texttt{FlowLayout}
+
+## \un{Variable intrinsic size} -- widget size depends on both parent and contained widgets
+### Bottom-up \& top-down algorithm
+### e.g. \texttt{BoxLayout}, \texttt{GridBagLayout}, \texttt{BorderLayout}
+
+## \un{Struts and Springs} -- layout specified by contraints and anchors
+### Strut widgets are fixed in size; spring/glue widgets stretch to fill space
+### e.g. \texttt{SpringLayout} \\
+\includegraphics[width=0.6\textwidth]{res/struts_and_springs.png}
 
 \end{easylist}
 
@@ -325,9 +354,24 @@ Lightweight toolkits:
 \subsection*{Graphics \& Transformations}
 \begineasylist
 
-#
+# \textbf{2D graphics}:
+## Model -- mathematical representation of an image/object \& its properties
+## Rendering -- using the properties to create an image to be displayed on the screen
+## Image -- the rendered model \\
+\includegraphics[width=0.4\textwidth]{res/graphics.png}
 
+## Shape model -- contains data needed to draw a shape (array of points, colour, border width etc.)
 
+# Selection paradigms:
+## \un{Click selection (for lines)} -- find closest line segment to mouse position
+### Check distance from mouse to each line segment using vector projection
+### Count as ``selection'' for distance under a certain threshold
+## \un{Click selection (for closed shapes)} -- check if mouse position is within shape
+### For complex polygons, draw a ray extending from the point \& count the \# of intersections with the polygon's boundary
+### If odd \# of intersections, the point is within the polygon; if even \#, it is not
+## Alternate approaches (not covered): rubberband rectangle, lasso
+
+# \textbf{Affine transformations}
 
 
 
