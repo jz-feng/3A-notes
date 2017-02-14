@@ -64,6 +64,8 @@
 
 \end{easylist}
 
+% ============================
+
 \newpage
 \subsection*{Windowing Systems \& X11}
 \begineasylist
@@ -142,8 +144,11 @@
 
 \end{easylist}
 
+
+% ============================
+
 \newpage
-\subsection*{Widgets, Events \& Layout}
+\subsection*{Widgets \& Events}
 \begineasylist
 
 # \textbf{Widgets}: parts of an interface that have their own behaviour
@@ -320,6 +325,14 @@ Disadvantages:
 
 \hspace{2em} \texttt{delegate = object.Method1; delegate += object.Method2; delegate(args);} \\
 
+\end{easylist}
+
+
+% ============================
+
+\newpage
+\subsection*{Layouts}
+\begineasylist
 
 # \textbf{Dynamic layout} -- maximize use of available of space by widgets, while maintaining consistency \& visual quality of spatial layout
 ## May adjust location, size, visibility \& look-and-feel of widgets
@@ -352,6 +365,9 @@ Disadvantages:
 
 \end{easylist}
 
+
+% ============================
+
 \newpage
 \subsection*{Graphics \& Transformations}
 \begineasylist
@@ -375,10 +391,58 @@ Disadvantages:
 
 # \textbf{Note}: origin is located at the \un{top-left} when discussing graphics \& transformations
 
-# \textbf{Affine transformations}
-##
+# \textbf{Affine transformations}:
+## \textbf{Translation}: add scalar to $x$ and/or $y$ component
+### Can't be done using $2 \times 2$ matrix
+## \textbf{Scaling}: multiply $x$ and/or $y$ components by scalars
+\[
+    \begin{bmatrix} x' \\ y' \end{bmatrix}
+    =
+    \begin{bmatrix} s_x & 0 \\ 0 & s_y \end{bmatrix}
+    \begin{bmatrix} x \\ y \end{bmatrix}
+\]
+## \textbf{Rotation} (about the origin): $x' = x\cos(\Theta) - y\sin(\Theta)$, $y' = x\sin(\Theta) + y\cos(\Theta)$
+\[
+    \begin{bmatrix} x' \\ y' \end{bmatrix}
+    =
+    \begin{bmatrix} x\cos(\Theta) & - y\sin(\Theta) \\ x\sin(\Theta) & y\cos(\Theta) \end{bmatrix}
+    \begin{bmatrix} x \\ y \end{bmatrix}
+\]
+## Solution for translation: \un{homogeneous coordinates}
+### $[x, y, w]$ represents a point at $[x/w, y/w]$; i.e. a scaling factor for coordinates
+## \un{Order of operations}: scale $\rightarrow$ rotate $\rightarrow$ translate
+### $x' = s_x(x\cos(\Theta) - y\sin(\Theta)) + t_x$
+### $y' = s_y(x\sin(\Theta) + y\cos(\Theta)) + t_y$
+### Since scaling \& rotation are about the origin, should \un{translate to origin first}, and translate back after scaling/rotation
+## \textbf{Affine transformation matrix}: calculates all transformations using $3 \times 3$ matrix
+\[
+    \begin{bmatrix} x' \\ y' \\ 1 \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 & 0 & t_x \\
+        0 & 1 & t_y \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x\cos(\Theta) & - y\sin(\Theta) & 0 \\
+        x\sin(\Theta) & y\cos(\Theta) & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        s_x & 0 & 0 \\
+        0 & s_y & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+\]
+### Transformations are applied right to left $\leftarrow$
+
+# \textbf{Scene graph} -- each component has a transformation matrix \& draws its child components relative to itself
+## The interactor tree is a type of scene graph
 
 
+
+% ============================
 
 \end{easylist}
 
@@ -407,10 +471,35 @@ Disadvantages:
 
 \end{easylist}
 
+
+% ============================
+
 \newpage
 \subsection*{Input}
 \begineasylist
 
+# Computer input can be classified by sensing method (e.g. mechanical, motion, contact), continuous vs. discrete, degrees of freedom
+# Devices are mostly focused on text \& positional input
+# \textbf{Text input}
+## QWERTY has many \emph{perceived} problems:
+### Many common combinations require inefficient finger movements
+### Most typing is done with left hand
+### Most typing is \emph{not} done on the home row
+## Dvorak attempts to address these problems, but actual difference in speed is discernible
+## Portability (smaller, lower-profile keys) of keyboards also interfere with typing performance
+## Soft/virtual keyboards lack haptic feedback, but improves aethestics -- good for when the amount of input is limited
+
+# \textbf{Positional input}
+## \un{Isometric} (force) vs. \un{isotonic} (displacement) sensing
+### Device senses displacement (mouse) or force (joystick)
+## \un{Position} vs. \un{rate} control
+### Change in input device maps to change in position (mouse) or speed (joystick)
+### Usually, isometric $\rightarrow$ rate, isotonic $\rightarrow$ position
+## \un{Absolute} vs. \un{relative} position
+### 1:1 mapping between input \& output position (touchscreen) or non-1:1 mapping (mouse)
+## \un{Direct} vs. \un{indirect} contact
+### Input takes place on the same surface as output (touchscreen) or on a different surface (mouse)
+## Dimensions sensed -- 1 (dial) vs. 2 (mouse) vs. 3 (Wiimote)
 
 
 \end{easylist}
