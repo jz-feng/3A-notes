@@ -246,15 +246,17 @@ Disadvantages:
 # \textbf{Interactor tree} -- hierarchy of containers and their nested widgets
 
 # \textbf{Positional dispatch} -- input sent to widget under mouse cursor location
-## Bottom-up positional dispatch:
+## \un{Bottom-up dispatch}:
 ### Event is routed to leaf (lowest) widget in interactor tree
 ### Widget can process the event or pass to its parent
 ### e.g. widget belongs in a group/container -- may be better for container to handle the event
-## Top-down positional dispatch:
+### Advantage: event does not have to traverse through entire tree to arrive at widget
+## \un{Top-down dispatch}:
 ### Event is routed to highest-level node that contains mouse cursor
 ### Widget can process the event or pass to child component
-### e.g. parent widget can enforce policies
-### e.g. easy logging of events (as it traverses down through the tree)
+### Advantages:
+#### Parent widget can enforce policies (e.g. make children view-only)
+#### Easy event logging (as it traverses down through the tree)
 
 # \textbf{Focus dispatch} -- events dispatched to widget that has keyboard/mouse focus
 ## At most one widget each can be in keyboard \& mouse focus at a given time
@@ -371,8 +373,43 @@ Disadvantages:
 ### If odd \# of intersections, the point is within the polygon; if even \#, it is not
 ## Alternate approaches (not covered): rubberband rectangle, lasso
 
-# \textbf{Affine transformations}
+# \textbf{Note}: origin is located at the \un{top-left} when discussing graphics \& transformations
 
+# \textbf{Affine transformations}
+##
+
+
+
+\end{easylist}
+
+\newpage
+\subsection*{Model-View-Controller}
+\begineasylist
+
+# \textbf{MVC} -- multiple views \emph{loosely coupled} with the underlying data model
+## Developed for Smalltalk-80 by Trygve Reenskaug
+## Tight coupling of data \& presentation prevents easy modification and extension
+## \un{Separation of concerns} enables:
+### Alternate forms of interaction/presentation with the same data
+### Multiple, simultaneous views of data
+### Easy testing of data manipulations that are independent of the UI
+## \un{View} \& \un{controller} can access the \un{model} through its interface; model only knows about the view
+### Controller $\rightarrow$ (notifies) $\rightarrow$ Model
+### View $\rightarrow$ (queries) $\rightarrow$ Model
+### Model $\rightarrow$ (updates) $\rightarrow$ View
+### Controller \& view are tightly coupled in practice: \\
+\includegraphics[width=0.4\textwidth]{res/mvc_practice.png}
+
+# MVC is an instance of the \textbf{observer pattern}
+## Allows objects to communicate without knowing each others' specific types \\
+\includegraphics[width=0.6\textwidth]{res/mvc_observer.png}
+## In Java, the view implements \texttt{Observer} (like \texttt{IView}); model extends \texttt{Observable}
+
+\end{easylist}
+
+\newpage
+\subsection*{Input}
+\begineasylist
 
 
 
