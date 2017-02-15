@@ -388,8 +388,8 @@ Disadvantages:
 ## \textbf{Rotation} (about the origin): $x' = x\cos(\Theta) - y\sin(\Theta)$, $y' = x\sin(\Theta) + y\cos(\Theta)$
 
 ## Order of operations: scale $\rightarrow$ rotate $\rightarrow$ translate
-### $x' = s_x(\cos(\Theta) - \sin(\Theta)) + t_x$
-### $y' = s_y(\sin(\Theta) + \cos(\Theta)) + t_y$
+### $x' = s_x(x\cos(\Theta) - y\sin(\Theta)) + t_x$
+### $y' = s_y(x\sin(\Theta) + y\cos(\Theta)) + t_y$
 ### Since scaling \& rotation are about the origin, should \un{translate to origin first}, and translate back after scaling/rotation
 ## Translation can't be done using $2 \times 2$ matrix -- use \un{homogeneous coordinates}
 ### $[x, y, w]$ represents a point at $[x/w, y/w]$; e.g. $[1, 2, 1] = [2, 4, 2]$
