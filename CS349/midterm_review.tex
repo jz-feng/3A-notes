@@ -284,7 +284,7 @@ Disadvantages:
 \textbf{Lightweight toolkits}:
     \begin{itemized}
     \item BWS only has visibility to application window
-    \item Toolkit dispatches event to widget
+    \item Toolkit then dispatches event to widget
     \item Can only use top-down dispatch
     \end{itemized}
     \vspace*{0.5em}
@@ -439,6 +439,21 @@ Disadvantages:
 
 # \textbf{Scene graph} -- each component has a transformation matrix \& draws its child components relative to itself
 ## The interactor tree is a type of scene graph
+## Each component has a transformation matrix (describes its location relative to parent)
+### Paints itself, then
+### Combine its matrix with child component's matrix, and tells child to paint itself using combined matrix
+
+# Benefits of geometric manipulation:
+## Allows reuse of objects (create multiple instances via transformations)
+## Allows specification of object in its own coordinate system (e.g. relative to parent)
+## Simplifies repositioning of object after change (e.g. moving an object in animation)
+
+# Coordinates given by events need to be transformed as they traverse the interactor tree
+## e.g. mouse event coordinates must be transformed into a model's local coordinates
+## Transforming \un{mouse $\rightarrow$ model} coordinates
+### Only one transformation -- take the inverse of model's affine matrix
+## Transforming \un{model $\rightarrow$ mouse} coordinates
+### Many transformations
 
 
 
