@@ -2,6 +2,8 @@
 
 (Will add/modify as I go along and as new info comes up from Piazza questions)
 
+- each component (colour palette, canvas etc.) should be a separate View class
+
 - menu bar
     - file menu
         - save & load to/from file
@@ -14,7 +16,7 @@
 
 - colour palette
     - colour selection
-        - custom colour chooser
+        - custom colour chooser (JColorChooser)
     - stroke thickness
     - new colour & thickness should not affect old strokes
 
@@ -29,6 +31,7 @@
         - may OR may not start playing automatically
     - end button
         - ff to end
+    - can use icons (state in readme)
     - each stroke must be drawn point-by-point w.r.t. time
         - OPTIONAL: draw stroke as it was drawn in real-time
 
@@ -37,6 +40,7 @@
         - "that stroke will truncated to just include points up to the new point where you start drawing (and the scrubber will update based on your new line length)"
 
 - dynamic layout
-    - "reasonable" minimum size, e.g. 400x300, 200x150
+    - "reasonable" minimum size, e.g. 400x300
     - no max size limit
     - canvas should be "fully accessible" regardless of size of window
+    - image should **scale with the canvas**
