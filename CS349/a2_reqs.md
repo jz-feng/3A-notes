@@ -23,7 +23,16 @@
 - playback controls
     - playback bar
         - each stroke = 1 tick in the bar
-        - scrubbing
+        - scrubbing (drag back & forth)
+        - should be able to scrub to the middle of a stroke
+        - without enhancements:
+            - each tick has the same size
+            - each stroke takes the same duration to draw
+            - each stroke is drawn out point-by-point (at constant speed) across the span of one tick
+        - with enhancements:
+            - each tick has size proportional to the time taken to draw it
+            - each stroke is drawn out in the same amount of actual time to draw it
+            - each stroke is still drawn out at constant speed
     - play button
         - draw stroke
     - start button
@@ -44,3 +53,4 @@
     - no max size limit
     - canvas should be "fully accessible" regardless of size of window
     - image should **scale with the canvas**
+    - left pane should expand & contract; all colours in the palette should be visible at all times
