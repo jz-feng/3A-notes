@@ -5,6 +5,7 @@
 \usepackage[fleqn]{amsmath}
 \usepackage[sharp]{easylist}
 \usepackage{relsize}
+\usepackage{graphicx}
 
 \pagenumbering{gobble}              % No page numbering
 \setlength{\parindent}{0em}         % No paragraph indenting
@@ -81,6 +82,7 @@ $$
 ## $\sum_{i=1}^n \dfrac{1}{i} \in \Theta(\log n)$ (Harmonic series)
 
 \end{easylist}
+\newpage
 \subsection*{Divide and Conquer}
 \begineasylist
 
@@ -106,6 +108,11 @@ $$
 ### Total runtime of recursion tree is (summing every row total):
 $$T(n) \in \Theta\left(\sum_{i=0}^{\log_b n - 1} a^if(n/b^i)\right) + \Theta(n^{\log_b a})$$
 ### Use geometric series formula to find a simplified value
+
+\newpage
+## Example: $T(n) = 3T(n/4) + n^2$ \\
+\includegraphics[width=0.8\textwidth]{rec_tree.png}
+$$T(n) \in \Theta\left(\sum_{k=0}^{\log_4 n - 1} \left(\frac{3}{16}\right)^k n^2 + n^{\log_4 3}\right) \in \Theta(n^2)$$
 
 # \textbf{Master method}:
 ## Given the recurrence $T(n) = aT(n/b) + f(n)$ where $f(n) \in \Theta(n^d)$:
