@@ -15,6 +15,8 @@
 
 \newcommand*{\begineasylistnumbered}{\begin{easylist}[enumerate]\ListProperties(Numbers=a, Space=0em, Space*=0em)}
 
+\newcommand*{\un}[1]{\underline{\smash{#1}}}        % custom underline macro
+
 \begin{document}
 
 \section*{CS 341}
@@ -124,6 +126,26 @@ $$T(n) \in \left\{
 \end{array}
 \right.
 $$
+
+
+\end{easylist}
+\newpage
+\subsection*{Greedy Algorithms}
+\begineasylist
+
+# Two methods of proving greedy algorithms:
+
+# \textbf{Greedy stays ahead (induction)}
+## Show that $S_g$ is better than $S$ at every step
+## \un{Base case}: show $S_g[1] > S[1]$
+## \un{Inductive hypothesis}: assume $S_g[k-1] > S[k-1]$; show that $S_g[k] > S[k]$
+### Often by contradiction; i.e. suppose $\exists \ S^*$ such that $S_g[k] < S^*[k]$, and derive some contradiction
+
+# \textbf{Exchange argument (swapping)}
+## Let $S_g$ = greedy solution, $S$ = some arbitrary solution
+## Show that (any) $S$ can be transformed into $S_g$ step-by-step \un{without getting worse at any point}
+### i.e. compare the cost of before \& after swapping 2 elements in $S$, show that it doesn't change or improves
+
 
 
 \end{easylist}
