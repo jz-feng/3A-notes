@@ -155,23 +155,46 @@ $$
 
 # $P$: \un{solvable} in \un{polynomial time}
 # $NP$: \un{verifiable} in \un{polynomial time}
-## $P \subseteq NP$
-# $NP$-complete: set of problems $X \in NP$ such that all $Y \in NP$ can be reduced to $X$
-## $NPC \subseteq NP$
-
+## A verification algorithm takes 2 inputs:
+## Problem instance -- a particular set of parameters of the problem
+### e.g. a graph, with vertices and edges
+## Certificate -- a given ``solution'' of the problem that shows the instance returns $yes$
+### e.g. a ordered list of vertices, used to verify that a Hamiltonian cycle indeed exists
+# $P \subseteq NP$
 
 # \textbf{Reducibility}:
 ## $L_1 \leq_P L_2$ -- ``$L_1$ is polynomial-time reducible to $L_2$''
-## There exists a P-time computable function that maps $L_1$ to $L_2$ \\
+## There exists a P-time computable function $f$ that maps instances of $L_1$ to $L_2$
+## e.g. If problem instance $I$ returns \emph{yes} for $L_1$, then $f(I)$ also returns \emph{yes} for $L_2$ \\
 \includegraphics[width=0.6\textwidth]{reduction.png}
 
 ## If $L_1 \leq_P L_2$, then $L_2 \in P \implies L_1 \in P$
-### i.e., if $L_2$ is solvable in P-time, then $L_1$ is as well
-### i.e., $L_1$ is \un{no harder than} $L_2$ 
+### i.e. if $L_2$ is solvable in P-time, then $L_1$ is as well
+### i.e. $L_1$ is \un{no harder than} $L_2$ 
 
 ## Contrapositive:
-### i.e., if $L_1$ is known to be \emph{not} solvable in P-time, then $L_2$ can't be either
+### i.e. if $L_1$ is known to be \emph{not} solvable in P-time, then $L_2$ can't be either
 ### i.e. $L_2$ is \un{as hard as} $L_1$
+
+## Mainly used for reducing decision problems as part of NPC proofs
+
+# \textbf{Turing reduction}:
+## A reduction $L_1 \leq_T L_2$ used to solve $L_1$, where $L_2$ is known, e.g. available as a subroutine
+## $L_1, L_2$ don't have to be decision problems
+## Mainly used for reducing optimization problem $\rightarrow$ decision problem
+
+# \textbf{NP-Completeness}:
+## $L$ is NPC if:
+### $L \in NP$, and
+### $\forall \ L' \in NP, L' \leq_P L$ (this is definition of \un{NP-hard})
+## i.e. NPC = set of problems in NP such that all other NP problems can be can be reduced to $X$
+## NPC = NP $\cap$ NP-hard
+## Because of these properties, to prove a problem $L$ is NPC:
+### Show that $L \in$ NP
+### Show that $L' \leq_P L$ for some $L' \in$ NPC
+
+# Reduction relationships between NPC problems: \\
+\includegraphics[width=0.6\textwidth]{npc_problems.png}
 
 
 \end{easylist}
