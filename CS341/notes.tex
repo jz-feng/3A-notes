@@ -149,4 +149,30 @@ $$
 
 
 \end{easylist}
+\newpage
+\subsection*{Intractability}
+\begineasylist
+
+# $P$: \un{solvable} in \un{polynomial time}
+# $NP$: \un{verifiable} in \un{polynomial time}
+## $P \subseteq NP$
+# $NP$-complete: set of problems $X \in NP$ such that all $Y \in NP$ can be reduced to $X$
+## $NPC \subseteq NP$
+
+
+# \textbf{Reducibility}:
+## $L_1 \leq_P L_2$ -- ``$L_1$ is polynomial-time reducible to $L_2$''
+## There exists a P-time computable function that maps $L_1$ to $L_2$ \\
+\includegraphics[width=0.6\textwidth]{reduction.png}
+
+## If $L_1 \leq_P L_2$, then $L_2 \in P \implies L_1 \in P$
+### i.e., if $L_2$ is solvable in P-time, then $L_1$ is as well
+### i.e., $L_1$ is \un{no harder than} $L_2$ 
+
+## Contrapositive:
+### i.e., if $L_1$ is known to be \emph{not} solvable in P-time, then $L_2$ can't be either
+### i.e. $L_2$ is \un{as hard as} $L_1$
+
+
+\end{easylist}
 \end{document}
