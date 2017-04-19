@@ -179,7 +179,8 @@ $$
 ## Mainly used for reducing decision problems as part of NPC proofs
 
 # \textbf{Turing reduction}:
-## A reduction $L_1 \leq_T L_2$ used to solve $L_1$, where $L_2$ is known, e.g. available as a subroutine
+## A reduction $L_1 \leq^T L_2$ used to solve $L_1$, where $L_2$ is known, e.g. available as a subroutine
+## $L_1 \leq_P^T L_2$ -- polynomial-time Turing reduction
 ## $L_1, L_2$ don't have to be decision problems
 ## Mainly used for reducing optimization problem $\rightarrow$ decision problem
 
@@ -195,6 +196,12 @@ $$
 
 # Reduction relationships between NPC problems: \\
 \includegraphics[width=0.6\textwidth]{npc_problems.png}
+
+# \textbf{Undecidability}:
+## No algorithm can solve the problem
+## Show that the existence of an algorithm leads to a contradiction
+## Example: the Halting Problem
+## Reduce an undecidable problem to another problem to show that it's also undecidable
 
 
 \end{easylist}
