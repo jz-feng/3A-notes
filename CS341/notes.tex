@@ -147,6 +147,100 @@ $$
 ### i.e. compare the cost of before \& after swapping 2 elements in $S$, show that it doesn't change or improves
 
 
+\end{easylist}
+\newpage
+\subsection*{Graphs}
+\begineasylist
+
+# \textbf{Breadth-first search}
+
+\begin{verbatim}
+function BFS(G, s) {        // s = starting vertex
+    Q = queue
+    mark all vertices as unvisited
+    mark s as visiting
+    Q.enqueue(s)
+    while (Q not empty):
+        v = Q.dequeue()
+        for each unvisited neighbour u of v:
+            mark u as visiting
+            Q.enqueue(u)
+        mark v as finished
+}
+\end{verbatim}
+
+## Forward edges cannot exist in BFS trees; cross \& back edges can
+## Cross edges indicate presence of an odd cycle -- graph is \un{not bipartite}
+
+# \textbf{Depth-first search}
+
+\begin{verbatim}
+function DFS-visit(G, s) {  // s = starting vertex
+    mark s as visiting
+    for each unvisited neighbour u of s:
+        DFS(G, u)
+    set s as finished
+}
+
+function DFS(G) {           // creates DFS forest
+    mark all vertices as unvisited
+    for each unvisited v in G.V:
+        DFS-visit(G, v)
+}
+\end{verbatim}
+
+## Iterative implementation using a stack is also possible
+
+# \textbf{Topological sorting}
+## Order the nodes such that for every $(u, v) \in E$, $u$ precedes $v$
+## Algorithm 1: remove source nodes iteratively
+## Algorithm 2: run DFS with finishing times of each node, then \un{order by decreasing finish time}
+
+# \textbf{Strongly connected components}
+## An SCC = a \emph{maximal} subset of vertices such that every pair $u, v$ are reachable from each other
+### i.e. $\exists$ path from $u \rightarrow v$ and $v \rightarrow u$
+
+## The \un{component graph} of $G$, $G^{SCC}$, is a DAG
+
+## \textbf{Kosaraju's Algorithm}:
+
+\begin{verbatim}
+function find_SCCs(G) {
+    compute G_rev
+    DFS(G) -> keep track of finish times
+    for each unvisited v in G.V, by decreasing finishing time:
+        DFS(G, v) -> label as SCC
+}
+\end{verbatim}
+
+# \textbf{Minimum spanning tree}:
+## Sum of edge weights is minimal
+
+## General greedy MST algorithm:
+### Add the minimum weighted edge crossing the cut formed by the tree ``so far'' \& the rest of the graph
+### Repeat for $n-1$ times
+
+## \textbf{Prim's Algorithm}: general greedy algorithm but with heap-based priority queue
+### Runtime = $O(m\log n)$
+
+## \textbf{Kruskal's Algorithm}:
+### Sort edges by weight; choose the minimum weighted edge that doesn't create a cycle
+### Runtime = $O(m\log n)$
+
+# \textbf{Shortest path}:
+## SSSP in DAG:
+### Use DP, and the recurrence: $SD[v] = min_{(u,v) \in E}{SD[u] + w(u, v)}$
+### i.e. subproblem is the SSSP to the vertices \un{preceding $v$}
+
+## \textbf{Dijkstra's Algorithm}:
+### At each step, pick the vertex with the \un{shortest distance so far}
+### ``Overwrite'' distance-so-far of a vertex if a shorter path to it has been found
+### Runtime = $O(m\log n)$
+
+## \textbf{Floyd-Warshall's Algorithm} (all-pairs shortest path):
+### $D[i,j,k]$ = shortest path from $i$ to $j$ that only goes through $v_1 \ldots v_k$ as intermediate vertices
+### Recurrence: $D[i,j,k] = \min(D[i,j,k-1], D[i,k,k-1] + D[k,j,k-1])$
+### Runtime = $O(n^3)$
 
 \end{easylist}
 \newpage
