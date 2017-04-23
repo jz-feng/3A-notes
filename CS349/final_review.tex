@@ -428,7 +428,7 @@ Disadvantages:
 
 # Computer input can be classified by sensing method (e.g. mechanical, motion, contact), continuous vs. discrete, degrees of freedom
 # Specific vs. general input
-## Specific inputs are optimized for certain tasks, but general inputs can be adapted to many tasks
+## Specific inputs are optimized for certain tasks (but can't do others); general inputs can be adapted to many tasks (but lack accuracy/optimization)
 # \textbf{Text input}
 ## QWERTY has many \emph{perceived} inefficiencies; Dvorak attempts to address these problems, but actual difference in speed is discernible
 ## Portability (smaller, lower-profile keys) of keyboards also interfere with typing performance
@@ -450,8 +450,127 @@ Disadvantages:
 
 # \textbf{Keystroke Level Model} (KLM):
 ## Use operators to estimate how long an input task should take
-### Keystroke, pointing, mouse button press, hand move between mouse \& keyboard, mental preparation
+### Keystroke (K), pointing (P), mouse button press (B), hand move between mouse \& keyboard (H), mental preparation (M)
+### M is only needed when user needs to think, e.g. initiate a task, make a decision, or if they are a novice
 
+## Advantages:
+### Easy to model; can be done before an interface is actually built
+## Disadvantages:
+### Estimates can be out of date or inherently variable
+### Doesn't model errors and learning time
+
+# \textbf{Fitts' Law}:
+## Predictive model for 2D pointing time, especially robust for modelling human hand movements
+## In general, longer distance \& smaller target $\rightarrow$ longer time
+\[ MT = a + b\log\left(\frac{D}{W} + 1\right) \]
+### $MT$ = movement time
+### $D$ = distance from starting point $\leftrightarrow$ centre of target
+### $W$ = constraining size (e.g. width) of target
+### $a, b$ = some parameters of the input device
+### $b$ = index of performance ($IP$) $\approx MT/ID$
+### $\log(D/W + 1)$ = index of difficulty ($ID$)
+
+## \un{Visual space}: how something appears to move on-screen
+## \un{Motor space}: how movement feels relative to input
+## Cursor speeds can be manipulated to make objects seem bigger in motor space (stickier)
+
+# \textbf{Steering Law}:
+## When steering through a path between boundaries (e.g. context menus):
+\[ T = b \frac{D}{W} \]
+## Time to travel a complex path = sum of the times taken to travel each small path
+## When steering between boundaries, distance \& width have greater influence on difficulty
+
+\end{easylist}
+
+
+% ============================
+
+\subsection*{Direct Manipulation}
+\begineasylist
+
+# \textbf{Domain objects} -- object of interest; data/attribute (model)
+
+# \textbf{Interaction instrument} -- used by user to manipulate domain objects
+## In turn manipulated through physical actions by user
+
+# Spatial activation -- instrument put under user control due to cursor movement
+## Cost = cursor movement distance
+
+# Temporal activation -- instrument put under user control due to some former action; enters a state
+## Cost = sequence of previous actions/steps required
+
+# Degree of indirection:
+## Spatial offset (e.g. object follows mouse drag) \& temporal offsets (e.g. immediate response)
+
+# Degree of integration:
+## Degrees of freedom of the instrument vs. input device
+## e.g. 2D mouse + 1D scrollbar (higher degree) vs. 2D mouse + 3D model (lower degree)
+
+# Degree of compatibility:
+## Similarity between physical action on instrument vs. response in object
+## e.g. dragging (high similarity) vs. dialog box (low similarity)
+
+# \textbf{Direction manipulation} attempts to make user actions resemble real-world actions on objects
+## Visible \& continuous representation of the domain objects and actions
+## Objects are manipulated by physical actions, e.g. clicking/dragging
+## Effects of operations on objects are immediately visible
+## Actions should be reversible
+## Allows users to feel like they are interacting directly with domain objects rather than an interface
+
+\bigskip
+# DM feature: \textbf{Undo/Redo}
+
+## Enables exploratory learning; lets the user recover from errors
+## \un{Design decisions}:
+### Undoable actions
+### UI state after undo
+### Granularity
+### Scope
+
+## \un{Forward undo} -- apply CRs (change records) forwards from some baseline document
+## \un{Reverse undo} -- save reverse CRs and apply them in reverse
+
+## \un{Memento pattern} -- save snapshots of (entire or incremental) document state
+## \un{Command pattern} -- save commands (or reverse commands)
+
+## e.g. Java uses reverse undo + command
+### User issues command $\rightarrow$ push onto undo stack, clear redo stack
+### Undo $\rightarrow$ pop from undo, perform reverse command, push onto redo
+### Redo $\rightarrow$ pop from redo, perform command, push onto undo
+
+\bigskip
+# DM feature: \textbf{Clipboard}
+
+## Cut + paste/drag + drop allows for easy data transfer within and between applications
+## Copy $\rightarrow$ paste format may be different (e.g. many image formats)
+### Application indicates what formats the data on clipboard is available in
+
+## For large amounts of data, may put a reference on clipboard instead (instead of making a copy)
+### Saves memory
+### But must create a copy if data is changed, or application is closed
+
+## Owned/maintained by the \un{window system}, not individual applications
+
+\end{easylist}
+
+
+% ============================
+
+\newpage
+\subsection*{Responsiveness}
+\begineasylist
+
+# Responsiveness $\neq$ performance
+## Performance = computations per unit time
+## Responsiveness = compliance with human time requirements (\un{deadlines})
+
+\end{easylist}
+
+
+% ============================
+
+\subsection*{Touch Interfaces}
+\begineasylist
 
 \end{easylist}
 
